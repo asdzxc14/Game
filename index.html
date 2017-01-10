@@ -36,47 +36,19 @@
 
     <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
     <!--game_files_start-->
-	<script egret="game" src="bin-debug/command/Command.js"></script>
-	<script egret="game" src="bin-debug/command/CommandService.js"></script>
-	<script egret="game" src="bin-debug/fightService/BattleService.js"></script>
-	<script egret="game" src="bin-debug/item/Property.js"></script>
-	<script egret="game" src="bin-debug/hero/Character.js"></script>
-	<script egret="game" src="bin-debug/hero/CharacterProperty.js"></script>
-	<script egret="game" src="bin-debug/hero/Hero.js"></script>
-	<script egret="game" src="bin-debug/hero/HeroProperty.js"></script>
-	<script egret="game" src="bin-debug/item/Item.js"></script>
-	<script egret="game" src="bin-debug/item/Equipment.js"></script>
-	<script egret="game" src="bin-debug/item/EquipmentProperty.js"></script>
-	<script egret="game" src="bin-debug/item/Gem.js"></script>
-	<script egret="game" src="bin-debug/item/GemProperty.js"></script>
-	<script egret="game" src="bin-debug/item/Head.js"></script>
-	<script egret="game" src="bin-debug/item/HeadProperty.js"></script>
-	<script egret="game" src="bin-debug/item/Shield.js"></script>
-	<script egret="game" src="bin-debug/item/ShieldProperty.js"></script>
-	<script egret="game" src="bin-debug/item/Weapon.js"></script>
-	<script egret="game" src="bin-debug/item/WeaponProperty.js"></script>
+	<script egret="game" src="bin-debug/Astar.js"></script>
+	<script egret="game" src="bin-debug/Command.js"></script>
+	<script egret="game" src="bin-debug/CreatAMap.js"></script>
+	<script egret="game" src="bin-debug/Hero.js"></script>
 	<script egret="game" src="bin-debug/LoadingUI.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
-	<script egret="game" src="bin-debug/map/FindWay.js"></script>
-	<script egret="game" src="bin-debug/map/GameMap.js"></script>
-	<script egret="game" src="bin-debug/monster/Monster.js"></script>
-	<script egret="game" src="bin-debug/npc/NPC.js"></script>
-	<script egret="game" src="bin-debug/npc/NPCState.js"></script>
-	<script egret="game" src="bin-debug/player/Player.js"></script>
-	<script egret="game" src="bin-debug/player/state/IdleState.js"></script>
-	<script egret="game" src="bin-debug/player/state/MoveState.js"></script>
-	<script egret="game" src="bin-debug/player/state/PlayerState.js"></script>
-	<script egret="game" src="bin-debug/stateMachine/StateMachine.js"></script>
-	<script egret="game" src="bin-debug/taskService/DialoguePanel.js"></script>
-	<script egret="game" src="bin-debug/taskService/EventEmitter.js"></script>
-	<script egret="game" src="bin-debug/taskService/Observer.js"></script>
-	<script egret="game" src="bin-debug/taskService/SceneService.js"></script>
-	<script egret="game" src="bin-debug/taskService/Task.js"></script>
-	<script egret="game" src="bin-debug/taskService/TaskPanel.js"></script>
-	<script egret="game" src="bin-debug/taskService/TaskService.js"></script>
-	<script egret="game" src="bin-debug/User/User.js"></script>
-	<script egret="game" src="bin-debug/userPanel/EquipmentPanel.js"></script>
-	<script egret="game" src="bin-debug/userPanel/HeroPanel.js"></script>
+	<script egret="game" src="bin-debug/Monstor.js"></script>
+	<script egret="game" src="bin-debug/NPC.js"></script>
+	<script egret="game" src="bin-debug/Package.js"></script>
+	<script egret="game" src="bin-debug/Task.js"></script>
+	<script egret="game" src="bin-debug/ScreenService.js"></script>
+	<script egret="game" src="bin-debug/TileNode.js"></script>
+	<script egret="game" src="bin-debug/UserPanel.js"></script>
 	<!--game_files_end-->
 </head>
 <body>
@@ -87,7 +59,7 @@
          data-scale-mode="showAll"
          data-frame-rate="30"
          data-content-width="640"
-         data-content-height="1136"
+         data-content-height="640"
          data-show-paint-rect="false"
          data-multi-fingered="2"
          data-show-fps="false" data-show-log="false"

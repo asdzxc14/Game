@@ -1,0 +1,215 @@
+{
+	"groups": [
+		{
+			"keys": "bg_jpg,egret_icon_png,description_json,idle_png,player01_idle_down_png,player01_idle_left_png,player01_idle_right_png,player01_idle_up_png,player01_walk_down_01_png,player01_walk_down_02_png,player01_walk_down_03_png,player01_walk_left_01_png,player01_walk_left_02_png,player01_walk_left_03_png,player01_walk_right_01_png,player01_walk_right_02_png,player01_walk_right_03_png,player01_walk_up_01_png,player01_walk_up_02_png,player01_walk_up_03_png,floor01_png,floor02_png,floor03_png,floor04_png,road_jpg,shelf01_png,shelf02_png,shelf03_png,shelf04_png,table01_png,table02_png,table03_png,table04_png,backMap_png,body_png,head_png,hero_png,neck_png,shield_png,shoulder_png,weapon_png",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"name": "bg_jpg",
+			"type": "image",
+			"url": "assets/bg.jpg"
+		},
+		{
+			"name": "egret_icon_png",
+			"type": "image",
+			"url": "assets/egret_icon.png"
+		},
+		{
+			"name": "description_json",
+			"type": "json",
+			"url": "config/description.json"
+		},
+		{
+			"name": "idle_png",
+			"type": "image",
+			"url": "assets/character/player/idle/idle.png"
+		},
+		{
+			"name": "player01_idle_down_png",
+			"type": "image",
+			"url": "assets/character/player/idle/player01_idle_down.png"
+		},
+		{
+			"name": "player01_idle_left_png",
+			"type": "image",
+			"url": "assets/character/player/idle/player01_idle_left.png"
+		},
+		{
+			"name": "player01_idle_right_png",
+			"type": "image",
+			"url": "assets/character/player/idle/player01_idle_right.png"
+		},
+		{
+			"name": "player01_idle_up_png",
+			"type": "image",
+			"url": "assets/character/player/idle/player01_idle_up.png"
+		},
+		{
+			"name": "player01_walk_down_01_png",
+			"type": "image",
+			"url": "assets/character/player/walk/down/player01_walk_down_01.png"
+		},
+		{
+			"name": "player01_walk_down_02_png",
+			"type": "image",
+			"url": "assets/character/player/walk/down/player01_walk_down_02.png"
+		},
+		{
+			"name": "player01_walk_down_03_png",
+			"type": "image",
+			"url": "assets/character/player/walk/down/player01_walk_down_03.png"
+		},
+		{
+			"name": "player01_walk_left_01_png",
+			"type": "image",
+			"url": "assets/character/player/walk/left/player01_walk_left_01.png"
+		},
+		{
+			"name": "player01_walk_left_02_png",
+			"type": "image",
+			"url": "assets/character/player/walk/left/player01_walk_left_02.png"
+		},
+		{
+			"name": "player01_walk_left_03_png",
+			"type": "image",
+			"url": "assets/character/player/walk/left/player01_walk_left_03.png"
+		},
+		{
+			"name": "player01_walk_right_01_png",
+			"type": "image",
+			"url": "assets/character/player/walk/right/player01_walk_right_01.png"
+		},
+		{
+			"name": "player01_walk_right_02_png",
+			"type": "image",
+			"url": "assets/character/player/walk/right/player01_walk_right_02.png"
+		},
+		{
+			"name": "player01_walk_right_03_png",
+			"type": "image",
+			"url": "assets/character/player/walk/right/player01_walk_right_03.png"
+		},
+		{
+			"name": "player01_walk_up_01_png",
+			"type": "image",
+			"url": "assets/character/player/walk/up/player01_walk_up_01.png"
+		},
+		{
+			"name": "player01_walk_up_02_png",
+			"type": "image",
+			"url": "assets/character/player/walk/up/player01_walk_up_02.png"
+		},
+		{
+			"name": "player01_walk_up_03_png",
+			"type": "image",
+			"url": "assets/character/player/walk/up/player01_walk_up_03.png"
+		},
+		{
+			"name": "floor01_png",
+			"type": "image",
+			"url": "assets/map/floor01.png"
+		},
+		{
+			"name": "floor02_png",
+			"type": "image",
+			"url": "assets/map/floor02.png"
+		},
+		{
+			"name": "floor03_png",
+			"type": "image",
+			"url": "assets/map/floor03.png"
+		},
+		{
+			"name": "floor04_png",
+			"type": "image",
+			"url": "assets/map/floor04.png"
+		},
+		{
+			"name": "road_jpg",
+			"type": "image",
+			"url": "assets/map/road.jpg"
+		},
+		{
+			"name": "shelf01_png",
+			"type": "image",
+			"url": "assets/map/shelf01.png"
+		},
+		{
+			"name": "shelf02_png",
+			"type": "image",
+			"url": "assets/map/shelf02.png"
+		},
+		{
+			"name": "shelf03_png",
+			"type": "image",
+			"url": "assets/map/shelf03.png"
+		},
+		{
+			"name": "shelf04_png",
+			"type": "image",
+			"url": "assets/map/shelf04.png"
+		},
+		{
+			"name": "table01_png",
+			"type": "image",
+			"url": "assets/map/table01.png"
+		},
+		{
+			"name": "table02_png",
+			"type": "image",
+			"url": "assets/map/table02.png"
+		},
+		{
+			"name": "table03_png",
+			"type": "image",
+			"url": "assets/map/table03.png"
+		},
+		{
+			"name": "table04_png",
+			"type": "image",
+			"url": "assets/map/table04.png"
+		},
+		{
+			"name": "backMap_png",
+			"type": "image",
+			"url": "assets/equipment/backMap.png"
+		},
+		{
+			"name": "body_png",
+			"type": "image",
+			"url": "assets/equipment/body.png"
+		},
+		{
+			"name": "head_png",
+			"type": "image",
+			"url": "assets/equipment/head.png"
+		},
+		{
+			"name": "hero_png",
+			"type": "image",
+			"url": "assets/equipment/hero.png"
+		},
+		{
+			"name": "neck_png",
+			"type": "image",
+			"url": "assets/equipment/neck.png"
+		},
+		{
+			"name": "shield_png",
+			"type": "image",
+			"url": "assets/equipment/shield.png"
+		},
+		{
+			"name": "shoulder_png",
+			"type": "image",
+			"url": "assets/equipment/shoulder.png"
+		},
+		{
+			"name": "weapon_png",
+			"type": "image",
+			"url": "assets/equipment/weapon.png"
+		}
+	]
+}

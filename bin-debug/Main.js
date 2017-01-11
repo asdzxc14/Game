@@ -1,39 +1,49 @@
+//////////////////////////////////////////////////////////////////////////////////////
+//
+//  Copyright (c) 2014-present, Egret Technology.
+//  All rights reserved.
+//  Redistribution and use in source and binary forms, with or without
+//  modification, are permitted provided that the following conditions are met:
+//
+//     * Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above copyright
+//       notice, this list of conditions and the following disclaimer in the
+//       documentation and/or other materials provided with the distribution.
+//     * Neither the name of the Egret nor the
+//       names of its contributors may be used to endorse or promote products
+//       derived from this software without specific prior written permission.
+//
+//  THIS SOFTWARE IS PROVIDED BY EGRET AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
+//  OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+//  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+//  IN NO EVENT SHALL EGRET AND CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+//  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+//  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;LOSS OF USE, DATA,
+//  OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+//  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+//  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//////////////////////////////////////////////////////////////////////////////////////
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
         _super.call(this);
         this.EventPoint = new egret.Point();
-        this.IdlePictures = [
-            this.createBitmapByName("0008_png"), this.createBitmapByName("0009_png"), this.createBitmapByName("0010_png"),
-            this.createBitmapByName("0011_png"), this.createBitmapByName("0012_png"), this.createBitmapByName("0013_png"),
-            this.createBitmapByName("0014_png"), this.createBitmapByName("0015_png"), this.createBitmapByName("0016_png"),
-            this.createBitmapByName("0017_png"), this.createBitmapByName("0018_png"), this.createBitmapByName("0019_png")
-        ];
-        this.WalkingRightPictures = [
-            this.createBitmapByName("0024_png"), this.createBitmapByName("0025_png"), this.createBitmapByName("0026_png"),
-            this.createBitmapByName("0027_png"), this.createBitmapByName("0028_png"), this.createBitmapByName("0029_png"),
-            this.createBitmapByName("0030_png"), this.createBitmapByName("0031_png"), this.createBitmapByName("0032_png"),
-            this.createBitmapByName("0033_png"), this.createBitmapByName("0034_png")
-        ];
-        this.WalkingLeftPictures = [
-            this.createBitmapByName("0024_2_png"), this.createBitmapByName("0025_2_png"), this.createBitmapByName("0026_2_png"),
-            this.createBitmapByName("0027_2_png"), this.createBitmapByName("0028_2_png"), this.createBitmapByName("0029_2_png"),
-            this.createBitmapByName("0030_2_png"), this.createBitmapByName("0031_2_png"), this.createBitmapByName("0032_2_png"),
-            this.createBitmapByName("0033_2_png"), this.createBitmapByName("0034_2_png")
-        ];
-        this.ifFindAWay = false;
-        this.ifStartMove = false;
         this.GoalPoint = new egret.Point();
         this.DistancePoint = new egret.Point();
         this.MoveTime = 0;
         this.tileSize = 64;
+        this.ifFindAWay = false;
         this.currentPath = 0;
         this.movingTime = 32;
         this.ifOnGoal = false;
+        this.ifStartMove = false;
         this.Npc01Dialogue = ["你好我是NPC01"];
-        this.Npc01AcceptDialogue = ["你好！任务1：去找NPC02对话！"];
+        this.Npc01AcceptDialogue = ["你好我这里有个很简单的对话任务，完成以后就能拿到传说装备yo~,考虑一下吧"];
         this.Npc02Dialogue = ["你好我是NPC02"];
-        this.Npc02AcceptDialogue = ["你好！任务2：杀怪，杀死一个地图上的怪物！"];
+        this.Npc02AcceptDialogue = ["你好我这里有个很简单的杀怪任务，完成以后也能拿到传说装备yo~,考虑一下吧"];
         this.Npc02SubmitDialogue = ["你变强了！！！\n点击完成任务后，奖励道具已经自动为您装备，请打开任务面板检查"];
         this.npcList = [];
         this.monsterIdList = ["slime01", "slime02"];
@@ -105,12 +115,19 @@ var Main = (function (_super) {
             this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
         }
     };
+    //private equipmentInformationPanel : EquipmentInformationPanel;
     /**
      * 创建游戏场景
      * Create a game scene
      */
     p.createGameScene = function () {
         var _this = this;
+        // this.Stage01Background = this.createBitmapByName("BackGround_jpg");
+        // this.addChild(this.Stage01Background);
+        // this.Stage01Background.width = stageH * 3.1;
+        // this.Stage01Background.height = stageH;
+        // this.Stage01Background.x = -stageH * 3.1 / 2;
+        // this.Stage01Background.y = 0;
         this.commandList = new CommandList();
         this.canMove = true;
         this.userPanelIsOn = false;
@@ -121,6 +138,7 @@ var Main = (function (_super) {
         this.map01 = new TileMap();
         this.addChild(this.map01);
         TaskService.getInstance();
+        //TaskService.getInstance().init();
         this.task01 = creatTask("task_00");
         this.task01.setMain(this);
         TaskService.getInstance().addTask(this.task01);
@@ -142,6 +160,7 @@ var Main = (function (_super) {
         TaskService.getInstance().addObserver(this.NPC01);
         TaskService.getInstance().addObserver(this.NPC02);
         this.screenService = new ScreenService();
+        //this.slime = new Monster("Slime01","slime","Slime_png",100);
         for (var _i = 0, _a = this.monsterIdList; _i < _a.length; _i++) {
             var id = _a[_i];
             var temp = creatMonster(id);
@@ -150,11 +169,16 @@ var Main = (function (_super) {
             temp.y = temp.posY;
             MonsterService.getInstance().addMonster(temp);
         }
+        // this.addChild(this.slime);
+        // this.slime.x = 64 * 5;
+        // this.slime.y = 64 * 4;
+        // this.slime.touchEnabled = true;
+        // this.monsterList.push(this.slime);
         this.addChild(this.NPC01);
         this.NPC01.x = 128;
         this.NPC01.y = 64;
         this.addChild(this.NPC02);
-        this.NPC02.x = 384;
+        this.NPC02.x = 256;
         this.NPC02.y = 320;
         this.dialoguePanel = DialoguePanel.getInstance();
         this.dialoguePanel.SetMain(this);
@@ -170,6 +194,7 @@ var Main = (function (_super) {
         this.Player.PersonBitmap.y = 0;
         this.map01.startTile = this.map01.getTile(0, 0);
         this.map01.endTile = this.map01.getTile(0, 0);
+        //this.map01.setEndTile(2,1);
         this.astar = new AStar();
         this.user = new User("Player01", 1);
         this.hero = new Hero("H001", "FemaleSaberHero01", Quality.ORAGE, 1, "FemaleSaberHero01_png", HeroType.SABER);
@@ -184,6 +209,7 @@ var Main = (function (_super) {
         this.helment.addJewl(this.armorJewel);
         this.corseler.addJewl(this.armorJewel);
         this.shoes.addJewl(this.armorJewel);
+        //this.hero.addWeapon(this.sword);
         this.hero.addHelment(this.helment);
         this.hero.addCorseler(this.corseler);
         this.hero.addShoes(this.shoes);
@@ -195,18 +221,37 @@ var Main = (function (_super) {
         EquipmentServer.getInstance().addArmor(this.helment);
         EquipmentServer.getInstance().addArmor(this.corseler);
         EquipmentServer.getInstance().addArmor(this.shoes);
+        //EquipmentServer.getInstance().addWeapon(new Weapon("W002","LeagendLance01",Quality.ORAGE,WeaponType.LANCE,"OrageLance01_png"));
+        //  console.log(this.user.getFightPower());
+        //  console.log(this.hero.getAttack());
+        //  console.log(this.hero.getDefence());
+        //  console.log(this.hero.getAglie());
+        //  console.log(this.hero.getMaxHP());
+        //  console.log("weaponJewel fightpower :" + this.weaponJewel.getFightPower().toFixed(0));
+        //  console.log("armorJewel fightpower :" + this.armorJewel.getFightPower().toFixed(0));
+        //  console.log("sword fightpower :" + this.sword.getFightPower().toFixed(0));
+        //  console.log("helment fightpower :" + this.helment.getFightPower().toFixed(0));
+        //  console.log("helment defence :" + this.helment.getDefence().toFixed(0));
+        //  console.log("helment aglie :" + this.helment.getAglie().toFixed(0));
+        //  console.log("hero fightpower :" + this.hero.getFightPower().toFixed(0));
         this.userPanel = new UserPanel();
+        //this.addChild(this.userPanel);
         this.userPanel.showHeroInformation(this.hero);
         this.userPanel.x = (this.stage.width - this.userPanel.width) / 2;
         this.userPanel.y = (this.stage.height - this.userPanel.height) / 2;
+        //this.userPanel.equipmentInformationPanel.showEquipmentInformation(this.sword);
         this.userPanelButton.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function (e) {
             _this.addChild(_this.userPanel);
             _this.userPanel.showHeroInformation(_this.hero);
+            //console.log("upbdown");
         }, this);
         //根据name关键字，异步获取一个json配置文件，name属性请参考resources/resource.json配置文件的内容。
         // Get asynchronously a json configuration file according to name keyword. As for the property of name please refer to the configuration file of resources/resource.json.
         //RES.getResAsync("description_json", this.startAnimation, this)
         this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function (e) {
+            //egret.Tween.removeTweens(this.Player.PersonBitmap);
+            //this.ifStartMove = true;
+            //var tempTile : Tile;
             NPC.npcIsChoose = null;
             _this.ifFight = false;
             if (_this.userPanelIsOn && (e.stageX < _this.userPanel.x || e.stageX > _this.userPanel.x + _this.userPanel.width || e.stageY < _this.userPanel.y || e.stageY > _this.userPanel.y + _this.userPanel.height)) {
@@ -217,10 +262,12 @@ var Main = (function (_super) {
             _this.playery = Math.floor(_this.Player.PersonBitmap.y / _this.tileSize);
             _this.playerBitX = _this.Player.PersonBitmap.x;
             _this.playerBitY = _this.Player.PersonBitmap.y;
+            //console.log(this.playerx + "," + this.playery);
             _this.map01.startTile = _this.map01.getTile(_this.playerx, _this.playery);
             _this.Player.PersonBitmap.x = _this.playerx * 64;
             _this.Player.PersonBitmap.y = _this.playery * 64;
             _this.currentPath = 0;
+            //console.log(playerx + " And " + playery);
             _this.EventPoint.x = e.stageX;
             _this.EventPoint.y = e.stageY;
             _this.tileX = Math.floor(_this.EventPoint.x / _this.tileSize);
@@ -238,9 +285,15 @@ var Main = (function (_super) {
                     _this.monsterAttacking = monster;
                 }
             }
+            // if(this.map01.getTile(this.tileX,this.tileY).tileData.walkable)
+            // {
+            //     
+            // }
+            //this.map01.setEndTile(this.tileX,this.tileY);
             _this.map01.endTile = _this.map01.getTile(_this.tileX, _this.tileY);
             _this.ifFindAWay = _this.astar.findPath(_this.map01);
             if (_this.ifFindAWay) {
+                //this.Player.SetState(new WalkingState(),this);
                 _this.currentPath = 0;
             }
             for (var i = 0; i < _this.astar.pathArray.length; i++) {
@@ -250,6 +303,19 @@ var Main = (function (_super) {
                 _this.disx = Math.abs(_this.playerx * _this.tileSize - _this.Player.PersonBitmap.x);
                 _this.disy = Math.abs(_this.playery * _this.tileSize - _this.Player.PersonBitmap.y);
             }
+            // egret.Ticker.getInstance().register(()=>{
+            // if(!this.IfOnGoal(this.map01.getTile(1,0))){
+            //    this.Player.PersonBitmap.x++;
+            // }
+            // },this)
+            //console.log(this.map01.endTile.x + " And " + this.map01.endTile.y);
+            // while(this.Player.PersonBitmap.x != this.GoalPoint.x || this.Player.PersonBitmap.y != this.GoalPoint.y){
+            //     egret.Ticker.getInstance().register(()=>{
+            //        this.Player.PersonBitmap.x += 1;
+            //         this.Player.PersonBitmap.y += 1;
+            //     },this)
+            // }
+            // this.PictureMove(this.Stage01Background);
             if (_this.ifFindAWay)
                 _this.map01.startTile = _this.map01.endTile;
             if (_this.EventPoint.x >= _this.userPanelButton.x && _this.EventPoint.y <= _this.userPanelButton.height) {
@@ -259,8 +325,10 @@ var Main = (function (_super) {
             }
             if (_this.commandList._list.length > 0)
                 _this.commandList.cancel();
+            //this.commandList.addCommand(new FightCommand(this.Player,this));
             if (_this.canMove && !_this.userPanelIsOn)
                 _this.commandList.addCommand(new WalkCommand(_this));
+            //this.commandList.addCommand(new FightCommand(this.Player,this));
             if (NPC.npcIsChoose != null && !_this.userPanelIsOn)
                 _this.commandList.addCommand(new TalkCommand(_this, NPC.npcIsChoose));
             if (_this.ifFight)
@@ -280,6 +348,33 @@ var Main = (function (_super) {
         result.texture = texture;
         return result;
     };
+    /**
+     * 描述文件加载成功，开始播放动画
+     * Description file loading is successful, start to play the animation
+     */
+    // private startAnimation(result:Array<any>):void {
+    //     var self:any = this;
+    //     var parser = new egret.HtmlTextParser();
+    //     var textflowArr:Array<Array<egret.ITextElement>> = [];
+    //     for (var i:number = 0; i < result.length; i++) {
+    //         textflowArr.push(parser.parser(result[i]));
+    //     }
+    //     var textfield = self.textfield;
+    //     var count = -1;
+    //     var change:Function = function () {
+    //         count++;
+    //         if (count >= textflowArr.length) {
+    //             count = 0;
+    //         }
+    //         var lineArr = textflowArr[count];
+    //         self.changeDescription(textfield, lineArr);
+    //         var tw = egret.Tween.get(textfield);
+    //         tw.to({"alpha": 1}, 200);
+    //         tw.wait(2000);
+    //         tw.to({"alpha": 0}, 200);
+    //         tw.call(change, self);
+    //     };
+    // }
     p.PlayerMove = function () {
         var _this = this;
         var self = this;
@@ -297,6 +392,7 @@ var Main = (function (_super) {
                         distanceY = distanceY - _this.disy;
                     else
                         distanceY = distanceY + _this.disy;
+                    //console.log(this.disx + "And" + this.disy);
                     if (distanceX > 0) {
                         self.Player.SetRightOrLeftState(new GoRightState(), self);
                     }
@@ -339,6 +435,18 @@ var Main = (function (_super) {
                 }
             }
         }, self);
+        //    for( self.currentPath = 0 ; self.currentPath < self.astar.pathArray.length - 1; self.currentPath++){
+        //         var distanceX = self.astar.pathArray[self.currentPath + 1].x - self.astar.pathArray[self.currentPath].x;
+        //         var distanceY = self.astar.pathArray[self.currentPath + 1].y - self.astar.pathArray[self.currentPath].y;
+        //         if(distanceX < 0){
+        //         self.Player.SetRightOrLeftState(new GoRightState(),self);
+        //         }
+        //         if(distanceX >= 0){
+        //         self.Player.SetRightOrLeftState(new GoLeftState(),self);
+        //         }
+        //         egret.Tween.get(self.Player.PersonBitmap).to({x : self.Player.PersonBitmap.x + distanceX,y : self.Player.PersonBitmap.y + distanceY} , Math.abs(distanceX) * 3 + Math.abs(distanceY) * 3);
+        //         self.MoveTime = Math.abs(distanceX) * 3 + Math.abs(distanceY) * 3;
+        //    }
     };
     p.PictureMove = function (pic) {
         var self = this;
@@ -351,6 +459,7 @@ var Main = (function (_super) {
             if (self.Player.GetIfGoLeft() && pic.x <= 0) {
                 egret.Tween.get(pic).to({ x: pic.x + Math.abs(dis) }, self.MoveTime);
             }
+            //egret.Tween.get(pic).call(MapMove,self);
         };
         MapMove();
     };
@@ -360,6 +469,7 @@ var Main = (function (_super) {
             this.ifOnGoal = true;
         else
             this.ifOnGoal = false;
+        //console.log(Math.floor(self.Player.PersonBitmap.x - 42 / tile.x) + " And " + Math.floor(self.Player.PersonBitmap.y - 64 / tile.y));
         return this.ifOnGoal;
     };
     p.PlayerAnimation = function () {
@@ -375,6 +485,7 @@ var Main = (function (_super) {
         var walkRightArr = ["24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34",];
         var fightArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
         var MoveAnimation = function () {
+            //var playerBitmap = egret.Tween.get(self.Player.PersonBitmap);
             egret.Ticker.getInstance().register(function () {
                 if (zhen % 4 == 0) {
                     if (self.Player.GetIfIdle() && !self.Player.GetIfWalk() && !self.Player.GetIfFight()) {
@@ -426,7 +537,21 @@ var Main = (function (_super) {
                         }
                     }
                 }
+                // if(self.IfOnGoal(self.map01.endTile)){
+                //  self.Player.SetState(new IdleState(),self);
+                //  WalkCommand.canFinish = false;
+                //  //console.log("PA");
+                // }
             }, self);
+            // var texture : egret.Texture = self.IdlePictures[n];
+            // self.PlayerPic.texture = texture;
+            //        egret.Tween.get(self.PlayerPic).to(self.IdlePictures[n],0);
+            //        egret.Tween.get(self.PlayerPic).wait(42);
+            //        n++;
+            //        if(n >= self.IdlePictures.length){
+            //           n=0;
+            //           }
+            //egret.Tween.get(self.Player.PersonBitmap).call(IdleAnimation,self);
         };
         var FramePlus = function () {
             egret.Ticker.getInstance().register(function () {
@@ -484,6 +609,8 @@ var Person = (function () {
         this.PersonBitmap = new egret.Bitmap();
         this.PersonBitmap.width = 49;
         this.PersonBitmap.height = 64;
+        // this.PersonBitmap.anchorOffsetX = 2 * this.PersonBitmap.width / 3;
+        // this.PersonBitmap.anchorOffsetY = this.PersonBitmap.height;
         this.IsIdle = true;
         this.IsWalking = false;
         this.IsFight = false;

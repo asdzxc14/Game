@@ -4,6 +4,8 @@ var TileMap = (function (_super) {
         _super.call(this);
         this.size = 2;
         this.TextruesSize = 64;
+        // this.width = this.size * this.TextruesSize;
+        // this.height = this.size * this.TextruesSize;
         this.tileArray = [];
         this.init();
         this.startTile = this.tileArray[0];

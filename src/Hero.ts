@@ -1,12 +1,9 @@
 var Cache: MethodDecorator = (target: any, propertyKey, descriptor: PropertyDescriptor) => {
-
     const method = descriptor.value;
-
     descriptor.value = function () {
-
+        //console.log(target,propertyKey)
         var cacheKey = "__cache" + propertyKey;
         if (!target[cacheKey]) {
-
             target[cacheKey] = method.apply(this);
         }
         return target[cacheKey];
@@ -14,7 +11,6 @@ var Cache: MethodDecorator = (target: any, propertyKey, descriptor: PropertyDesc
 }
 
 enum Quality {
-
     WHITE = 1,
     GREEN = 1.1,
     BLUE = 1.2,
@@ -23,7 +19,6 @@ enum Quality {
 }
 
 enum WeaponType {
-
     HANDSWORD = 1,
     LANCE = 1.8,
     AXE = 2,
@@ -32,7 +27,6 @@ enum WeaponType {
 }
 
 enum ArmorType {
-
     LIGHTARMOR = 1,
     LEATHERARMOR = 1.4,
     PLATEARMOR = 2,
@@ -41,7 +35,6 @@ enum ArmorType {
 }
 
 enum EquipementType {
-
     WEAPON = 1,
     HELMENT = 2,
     CORSELER = 3,
@@ -49,14 +42,12 @@ enum EquipementType {
 }
 
 enum JewelPromotion {
-
     ATTACKPRMOTE = 1,
     DEFENCEPRMOTE = 2,
     AGILEPRMOTE = 3,
 }
 
 enum HeroType {
-
     SABER = 0,
     LANCER = 1,
     ARCHER = 2,
@@ -66,8 +57,9 @@ enum HeroType {
     RIDER = 6
 }
 
-class User {
 
+
+class User {
     currentExp: number = 0;
     totalExp = 0;
     level: number = 1;
@@ -79,7 +71,6 @@ class User {
     package: Package;
 
     constructor(name: string, level: number) {
-
         this.userName = name;
         this.level = level;
         this.package = new Package();
@@ -87,25 +78,21 @@ class User {
 
     @Cache
     getTotalExp() {
-
         this.totalExp = (this.level + 60) * this.level;
         return this.totalExp;
     }
 
     public addHeros(hero: Hero) {
-
         this.__heros.push(hero);
     }
 
 
     public addHeroInTeam(hero: Hero) {
-
         this.__herosInTeam.push(hero);
     }
 
     @Cache
     getFightPower() {
-
         var result = 0;
         this.__herosInTeam.forEach(hero => result += hero.getFightPower());
         return result;
@@ -114,10 +101,11 @@ class User {
     changeHeroTeam(heroToUp, heroToDown) {
 
     }
+
+
 }
 
 class Hero {
-
     heroID: string;
     isInTeam: boolean = false;
     name: string = "";
@@ -132,13 +120,13 @@ class Hero {
     totalExp = 0;
     properties: Property[] = [];
     heroBitemapID: string;
+    //__equipmentsOnEquip : Equipment[] = [];
     __weaponsOnEquip: Weapon[] = [];
     __armorOnEquip: Armor[] = [];
     heroType = -1;
     color;
 
     constructor(heroID: string, name: string, quality: Quality, level: number, heroBitmapID: string, heroType: HeroType) {
-
         this.heroID = heroID;
         this.name = name;
         this.quality = quality;
@@ -150,64 +138,51 @@ class Hero {
 
     //@Cache
     getTotalExp() {
-
         this.totalExp = (this.level + 50) * this.level;
         return this.totalExp;
     }
 
     public addWeapon(weapon: Weapon) {
-
         this.__weaponsOnEquip[0] = weapon;
     }
 
     public addHelment(helment: Armor) {
-
         this.__armorOnEquip[0] = helment;
     }
 
     public addCorseler(corseler: Armor) {
-
         this.__armorOnEquip[1] = corseler;
     }
 
     public addShoes(shoes: Armor) {
-
         this.__armorOnEquip[2] = shoes;
     }
 
     public getEquipment(type: EquipementType) {
-
         var temp;
-
         switch (type) {
-
             case EquipementType.WEAPON:
                 if (this.__weaponsOnEquip[0])
                     temp = this.__weaponsOnEquip[0];
                 else temp = null;
-
             case EquipementType.HELMENT:
                 if (this.__armorOnEquip[0])
                     temp = this.__armorOnEquip[0];
                 else temp = null;
-
             case EquipementType.CORSELER:
                 if (this.__armorOnEquip[1])
                     temp = this.__armorOnEquip[1];
                 else temp = null;
-
             case EquipementType.SHOES:
                 if (this.__armorOnEquip[2])
                     temp = this.__armorOnEquip[2];
                 else temp = null;
         }
-
         return temp;
     }
 
     //@Cache
     getMaxHP() {
-
         var result = 0;
         this.__weaponsOnEquip.forEach(weapon => result += weapon.getFightPower() * 0.2);
         this.__armorOnEquip.forEach(armor => result += armor.getFightPower() * 0.8);
@@ -218,7 +193,6 @@ class Hero {
 
     //@Cache
     getAttack() {
-
         var result = 0;
         this.__weaponsOnEquip.forEach(weapon => result += weapon.getAttack() * 0.5);
         result += this.level * 5 * this.quality;
@@ -228,7 +202,6 @@ class Hero {
 
     //@Cache
     getDefence() {
-
         var result = 0;
         this.__armorOnEquip.forEach(armor => result += armor.getDefence() * 0.2);
         result += this.level * 2 * this.quality;
@@ -238,7 +211,6 @@ class Hero {
 
     //@Cache
     getAglie() {
-
         var result = 0;
         this.__weaponsOnEquip.forEach(weapon => result += weapon.getAglie() * 0.4);
         this.__armorOnEquip.forEach(armor => result += armor.getAglie() * 0.4);
@@ -249,7 +221,6 @@ class Hero {
 
     //@Cache
     getFightPower() {
-
         var result = 0;
         this.__weaponsOnEquip.forEach(weapon => result += weapon.getFightPower());
         this.__armorOnEquip.forEach(armor => result += armor.getFightPower());
@@ -259,10 +230,12 @@ class Hero {
 }
 
 class Equipment {
-
     equipmentID: string;
     quality = 0;
+    //level = 1;
     currentExp = 0;
+    //totalExp = 0;
+    //agile = 0;
     isWeapon = false;
     name: string = "";
     __jewelOnEquip: Jewel[] = [];
@@ -270,32 +243,33 @@ class Equipment {
     properties: Property[] = [];
     color;
     numInPackage: number;
+    //  @Cache
+    //  getTotalExp(){
+    //      this.totalExp = (this.level + 20) * this.level;
+    //      return this.totalExp;
+    //  }
 
     @Cache
     getFightPower() {
-
         return 0;
     }
 
 
     public addJewl(jewel: Jewel) {
-
         this.__jewelOnEquip.push(jewel);
     }
 
 }
 
 class Weapon extends Equipment {
-
+    //attack = 0;
     static weaponNum = 0;
     weaponID: string;
     isWeapon = true;
     weaponType = 0;
 
     constructor(equipmentID: string, name: string, quality: number, weaponType: WeaponType, weaponIconId: string) {
-
         super();
-
         this.equipmentID = equipmentID;
         this.name = name;
         this.quality = quality;
@@ -308,8 +282,9 @@ class Weapon extends Equipment {
 
     }
 
-    getAttack() {
 
+
+    getAttack() {
         var result = 0;
         this.__jewelOnEquip.forEach(jewel => result += jewel.getFightPower() * 0.4);
         result += 10 * this.weaponType * this.quality;
@@ -319,7 +294,6 @@ class Weapon extends Equipment {
 
 
     getAglie() {
-
         var result = 0;
         this.__jewelOnEquip.forEach(jewel => result += jewel.getFightPower() * 0.4);
         result += 5 * this.quality / this.weaponType;
@@ -329,13 +303,13 @@ class Weapon extends Equipment {
 
 
     getEquipmentInformations() {
-
         this.getAttack();
         this.getAglie();
     }
 
-    getFightPower() {
 
+
+    getFightPower() {
         var result = 0;
         this.__jewelOnEquip.forEach(jewel => result += jewel.getFightPower());
         result += this.getAttack() * this.quality * 10 + this.getAglie() * this.quality * 5;
@@ -344,16 +318,14 @@ class Weapon extends Equipment {
 }
 
 class Armor extends Equipment {
-
+    //defence = 0;
     static armorNum = 0;
     armorID: string;
     armorType = 0;
     isWeapon = false;
 
     constructor(equipmentID: string, name: string, quality: number, armorType: ArmorType, armorIconId: string) {
-
         super();
-
         this.equipmentID = equipmentID;
         this.name = name;
         this.quality = quality;
@@ -364,8 +336,10 @@ class Armor extends Equipment {
         Armor.armorNum++;
     }
 
-    getDefence() {
 
+
+
+    getDefence() {
         var result = 0;
         this.__jewelOnEquip.forEach(jewel => result += jewel.getFightPower() * 0.4);
         result += 6 * this.armorType * this.quality;
@@ -375,7 +349,6 @@ class Armor extends Equipment {
 
 
     getAglie() {
-
         var result = 0;
         this.__jewelOnEquip.forEach(jewel => result += jewel.getFightPower() * 0.4);
         result += 5 * this.quality / this.armorType;
@@ -385,30 +358,28 @@ class Armor extends Equipment {
 
 
     getFightPower() {
-
         var result = 0;
         this.__jewelOnEquip.forEach(jewel => result += jewel.getFightPower());
         result += this.getDefence() * this.quality * 10 + this.getAglie() * this.quality * 5;
         return result;
     }
 
-    getEquipmentInformations() {
 
+    getEquipmentInformations() {
         this.getDefence();
         this.getAglie();
     }
 }
 
 class Jewel {
-
     jewelID: string;
     static num: number = 0;
     name: string;
     quality = 0;
     color;
+    //promotionType = 0;
 
     constructor(jewelID: string, name: string, quality: number) {
-
         this.jewelID = jewelID;
         this.name = name;
         this.quality = quality;
@@ -417,7 +388,6 @@ class Jewel {
 
     @Cache
     getFightPower() {
-
         var result = 0;
         result = this.quality * 10;
         return result;
@@ -425,33 +395,26 @@ class Jewel {
 }
 
 class Property {
-
     name: string;
     value: number;
     isRate: boolean;
     constructor(name: string, value: number, isRate: boolean) {
-
         this.name = name;
         this.value = value;
         this.isRate = isRate;
     }
 
     getDescription() {
-
         if (this.isRate) {
-
             return this.name + ": +" + (this.value / 10).toFixed(2) + "%";
         } else {
-
             return this.name + ": +" + this.value;
         }
     }
 }
 
 class Properties {
-
     public all: string[] = [
-
         "攻击力",
         "防御力",
         "敏捷",
@@ -463,12 +426,10 @@ class Properties {
     }
 }
 
+
 class GetColor {
-
     static getColor(quality: Quality) {
-
         var color;
-
         if (quality == Quality.WHITE)
             color = 0xffffff;
         if (quality == Quality.BLUE)
@@ -479,39 +440,27 @@ class GetColor {
             color = 0x9a30d7;
         if (quality == Quality.ORAGE)
             color = 0xf4a315;
-
         return color;
     }
 }
 
 class EquipmentServer {
-
     private static instance;
-
     private weaponList: {
-
         [index: string]: Weapon
     } = {};
-
     private helmentList: {
-
         [index: string]: Armor
     } = {};
-
     private armorList: {
-
         [index: string]: Armor
     } = {};
-
     private shoesList: {
-
         [index: string]: Armor
     } = {};
 
     static getInstance(): EquipmentServer {
-
         if (EquipmentServer.instance == null) {
-
             EquipmentServer.instance = new EquipmentServer();
         }
 
@@ -519,42 +468,34 @@ class EquipmentServer {
     }
 
     public addWeapon(weapon: Weapon) {
-
         this.weaponList[weapon.equipmentID] = weapon;
     }
 
     public getWeapon(id: string): Weapon {
-
         return this.weaponList[id];
     }
 
     public addHelement(armor: Armor) {
-
         this.helmentList[armor.armorID] = armor;
     }
 
     public getHelement(id: string): Armor {
-
         return this.helmentList[id];
     }
 
     public addArmor(armor: Armor) {
-
         this.armorList[armor.armorID] = armor;
     }
 
     public getArmor(id: string): Armor {
-
         return this.armorList[id];
     }
 
     public addShoe(armor: Armor) {
-
         this.shoesList[armor.armorID] = armor;
     }
 
     public getShoe(id: string): Armor {
-
         return this.shoesList[id];
     }
 }

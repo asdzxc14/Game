@@ -10,9 +10,9 @@ class TileMap extends egret.DisplayObjectContainer {
 
 
     constructor() {
-
         super();
-
+        // this.width = this.size * this.TextruesSize;
+        // this.height = this.size * this.TextruesSize;
         this.tileArray = [];
         this.init();
         this.startTile = this.tileArray[0];
@@ -23,9 +23,7 @@ class TileMap extends egret.DisplayObjectContainer {
     }
 
     private init() {
-
         var config: TileData[] = [
-
             { x: 0, y: 0, walkable: true, pictureName: "grass_jpg", f: 0, g: 0, h: 0, costMultiplier: 1.0 },
             { x: 1, y: 0, walkable: true, pictureName: "pathway_jpg", f: 0, g: 0, h: 0, costMultiplier: 1.0 },
             { x: 2, y: 0, walkable: true, pictureName: "grass_jpg", f: 0, g: 0, h: 0, costMultiplier: 1.0 },
@@ -138,7 +136,6 @@ class TileMap extends egret.DisplayObjectContainer {
         ]
 
         for (let i = 0; i < config.length; i++) {
-
             var tiledata = config[i];
             var tile = new Tile(tiledata);
             this.addChild(tile);
@@ -149,11 +146,8 @@ class TileMap extends egret.DisplayObjectContainer {
     }
 
     public getTile(x: number, y: number): any {
-
         for (var i = 0; i < this.tileArray.length; i++) {
-
             if (this.tileArray[i].x / this.TextruesSize == x && this.tileArray[i].y / this.TextruesSize == y) {
-
                 break;
             }
         }
@@ -162,11 +156,8 @@ class TileMap extends egret.DisplayObjectContainer {
     }
 
     public setStartTile(x: number, y: number) {
-
         for (var i = 0; i < this.tileArray.length; i++) {
-
             if (this.tileArray[i].x / this.TextruesSize == x && this.tileArray[i].y / this.TextruesSize == y) {
-
                 break;
             }
         }
@@ -175,11 +166,8 @@ class TileMap extends egret.DisplayObjectContainer {
     }
 
     public setEndTile(x: number, y: number) {
-
         for (var i = 0; i < this.tileArray.length; i++) {
-
             if (this.tileArray[i].x / this.TextruesSize == x && this.tileArray[i].y / this.TextruesSize == y) {
-
                 break;
             }
         }
@@ -188,32 +176,29 @@ class TileMap extends egret.DisplayObjectContainer {
     }
 
     public getNumCols(): any {
-
         return this.numCols;
     }
 
     public getNumRows(): any {
-
         return this.numRows;
     }
 
     public getStartTile(): any {
-
         return this.startTile;
     }
+
+
 }
 
 class Tile extends egret.DisplayObjectContainer {
-
     public bitmaps;
     public bitmapSize = 64;
     public tileData: TileData;
     public tileParent: Tile;
 
+
     constructor(tiledata: TileData) {
-
         super();
-
         this.tileData = tiledata;
         this.bitmaps = new egret.Bitmap();
         this.addChild(this.bitmaps);
@@ -225,7 +210,6 @@ class Tile extends egret.DisplayObjectContainer {
 }
 
 class TileData {
-
     public x: number;
     public y: number;
     public walkable: boolean;

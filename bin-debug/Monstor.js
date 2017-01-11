@@ -62,7 +62,7 @@ egret.registerClass(MonsterService,'MonsterService');
 function creatMonster(id) {
     var data = {
         "slime01": { id: "slime01", name: "slime", pictureId: "Slime_png", maxHP: 100, x: 64 * 5, y: 64 * 4 },
-        "slime02": { id: "slime02", name: "slime", pictureId: "Slime_png", maxHP: 100, x: 64 * 4, y: 64 * 6 },
+        "slime02": { id: "slime02", name: "slime", pictureId: "Slime_png", maxHP: 100, x: 64 * 4, y: 64 * 7 },
     };
     var info = data[id];
     if (!info) {

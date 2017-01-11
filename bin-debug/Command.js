@@ -14,6 +14,7 @@ var WalkCommand = (function () {
                     callback();
                     WalkCommand.canFinish = false;
                 }
+                //console.log("233");
             }, this);
         }
     };
@@ -78,8 +79,10 @@ var TalkCommand = (function () {
                 TalkCommand.canFinish = false;
                 NPC.npcIsChoose = null;
                 _this._tmain.canMove = true;
+                //console.log("dui hua wan cheng");
                 callback();
             }
+            //console.log("233");
         }, this);
     };
     p.cancel = function (callback) {
@@ -103,6 +106,11 @@ var CommandList = (function () {
         var _this = this;
         this._frozen = true;
         var command = this.currentCommand;
+        // egret.setTimeout(() => {
+        //     if (this._frozen) {
+        //         this._frozen = false;
+        //     }
+        // }, this, 100);
         if (command) {
             command.cancel(function () {
                 _this._frozen = false;

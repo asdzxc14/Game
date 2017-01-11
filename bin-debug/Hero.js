@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var Cache = function (target, propertyKey, descriptor) {
     var method = descriptor.value;
     descriptor.value = function () {
+        //console.log(target,propertyKey)
         var cacheKey = "__cache" + propertyKey;
         if (!target[cacheKey]) {
             target[cacheKey] = method.apply(this);
@@ -116,6 +117,7 @@ var Hero = (function () {
         this.currentExp = 0;
         this.totalExp = 0;
         this.properties = [];
+        //__equipmentsOnEquip : Equipment[] = [];
         this.__weaponsOnEquip = [];
         this.__armorOnEquip = [];
         this.heroType = -1;
@@ -219,13 +221,21 @@ egret.registerClass(Hero,'Hero');
 var Equipment = (function () {
     function Equipment() {
         this.quality = 0;
+        //level = 1;
         this.currentExp = 0;
+        //totalExp = 0;
+        //agile = 0;
         this.isWeapon = false;
         this.name = "";
         this.__jewelOnEquip = [];
         this.properties = [];
     }
     var d = __define,c=Equipment,p=c.prototype;
+    //  @Cache
+    //  getTotalExp(){
+    //      this.totalExp = (this.level + 20) * this.level;
+    //      return this.totalExp;
+    //  }
     p.getFightPower = function () {
         return 0;
     };
@@ -279,6 +289,7 @@ var Weapon = (function (_super) {
         result += this.getAttack() * this.quality * 10 + this.getAglie() * this.quality * 5;
         return result;
     };
+    //attack = 0;
     Weapon.weaponNum = 0;
     return Weapon;
 }(Equipment));
@@ -323,11 +334,13 @@ var Armor = (function (_super) {
         this.getDefence();
         this.getAglie();
     };
+    //defence = 0;
     Armor.armorNum = 0;
     return Armor;
 }(Equipment));
 egret.registerClass(Armor,'Armor');
 var Jewel = (function () {
+    //promotionType = 0;
     function Jewel(jewelID, name, quality) {
         this.quality = 0;
         this.jewelID = jewelID;
